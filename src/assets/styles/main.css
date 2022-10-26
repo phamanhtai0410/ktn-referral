@@ -1,0 +1,175 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Poppins'), url(../fonts/poppins/Poppins-Regular.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Poppins'), url(../fonts/poppins/Poppins-Italic.woff) format('woff');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  src: local('Poppins'), url(../fonts/poppins/Poppins-Medium.woff) format('woff');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: italic;
+  font-weight: 500;
+  src: local('Poppins'), url(../fonts/poppins/Poppins-MediumItalic.woff) format('woff');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Poppins'), url(../fonts/poppins/Poppins-SemiBold.woff) format('woff');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: italic;
+  font-weight: 600;
+  src: local('Poppins'), url(../fonts/poppins/Poppins-SemiBoldItalic.woff) format('woff');
+}
+
+
+@font-face {
+  font-family: 'Jost';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Jost'), url(../fonts/jost/jost-light.woff) format('woff');
+}
+@font-face {
+  font-family: 'Jost';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Jost'), url(../fonts/jost/jost-regular.woff) format('woff');
+}
+@font-face {
+  font-family: 'Jost';
+  font-style: normal;
+  font-weight: 500;
+  src: local('Jost'), url(../fonts/jost/jost-medium.woff) format('woff');
+}
+@font-face {
+  font-family: 'Jost';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Jost'), url(../fonts/jost/jost-semibold.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Jost';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Jost'), url(../fonts/jost/jost-bold.woff) format('woff');
+}
+@font-face {
+  font-family: 'Oswald';
+  font-style: bold;
+  font-weight: 700;
+  src: local('Oswald'), url(../fonts/oswald-font-family/Oswald-Bold.woff) format('woff');
+}
+/* Oxanium */
+@font-face {
+  font-family: 'Oxanium';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Oxanium'), url(../fonts/oxanium/Oxanium-Light.ttf) format('ttf');
+}
+@font-face {
+  font-family: 'Oxanium';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Oxanium'), url(../fonts/oxanium/Oxanium-Regular.ttf) format('ttf');
+}
+@font-face {
+  font-family: 'Oxanium';
+  font-style: normal;
+  font-weight: 500;
+  src: local('Oxanium'), url(../fonts/oxanium/Oxanium-Medium.ttf) format('ttf');
+}
+@font-face {
+  font-family: 'Oxanium';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Oxanium'), url(../fonts/oxanium/Oxanium-SemiBold.ttf) format('ttf');
+}
+
+@font-face {
+  font-family: 'Oxanium';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Oxanium'), url(../fonts/oxanium/Oxanium-Bold.ttf) format('ttf');
+}
+
+body {
+  margin: 0;
+  font-family: 'Jost', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* .bg-body {
+  background: url('../images/home/bg_page.png') no-repeat center center;
+  background-size: 100% 100%;
+  width: 100%;
+
+} */
+
+
+.bg-ktn-body {
+  background: radial-gradient(67.31% 67.31% at 50% 50%, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%), url('../images/home/bg_page.png') no-repeat center center;
+  background-size: 100% 100%;
+  width: 100%;
+  background-color: black;
+}
+
+.btn:active {
+  @apply opacity-70;
+}
+
+.btn-footer{
+  background: url('../images/footer/f_bg_btn.png') no-repeat center center;
+  background-size: 100% 100%;
+  height: 47px;
+  width: 105px;
+  font-size: 14px;
+  position: absolute;
+  right: 5px;
+  top: 29px;
+}
+
+.btn-ktn-border{
+  border: 2px solid #a7710d;
+}
+
+.btn-ktn-shadow{
+  box-shadow: rgb(94 69 27) 3px 5px 8px 0px inset, rgba(63 47 17) -3px -8px 8px 1px inset;
+}
+
+
+.katana-modal {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+}
+
+.katana-modal-overlay {
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.8);
+}
