@@ -20,26 +20,6 @@ export interface ILeaderBoardArrayModel{
     num_of_page:number
 }
 
-
-/** MY NFTS */
-export interface IMyNFTModel{
-    token_id: number,
-    address: string,
-    name: string,
-    type: number,
-    created_time: number,
-    rarity: number,
-    price: string,
-    token_uri: string,
-    is_staking: boolean,
-}
-
-export interface IMyNFTsArrayModel{
-    items: IMyNFTModel[],
-    pagination:IPagination,
-    loading: boolean
-}
-
 /** WALLET */
 export interface IWalletModel{
     address: string,

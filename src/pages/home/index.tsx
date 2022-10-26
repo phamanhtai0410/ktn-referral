@@ -1,8 +1,6 @@
 import { useTranslation } from 'react-i18next'
-import StakingPage from "../../components/staking"
+import ReferralPage from '../../components/referral'
 const home = () => {
-  return (
-    <StakingPage/>
-  )
+  return <ReferralPage />
 }
 export default home

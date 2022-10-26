@@ -1,12 +1,7 @@
-import StakingPage from '@/pages/home/index'
-import ReferralPage from '@/pages/referral/index'
+import ReferralPage from '@/pages/home/index'
 const routes = [
   {
-    path: '/',
-    component: StakingPage,
-  },
-  {
-    path: '/referral',
+    path: '',
     component: ReferralPage,
   },
 ]

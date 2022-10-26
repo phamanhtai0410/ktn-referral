@@ -5,9 +5,9 @@ import {
   randomKeyUUID,
 } from '@/_helpers/utils/lib'
 import IcCopy from '../../assets/images/referral/ic_copy.svg'
-import IcTop1 from '../../assets/images/staking/ic_top1.svg'
-import IcTop2 from '../../assets/images/staking/ic_top2.svg'
-import IcTop3 from '../../assets/images/staking/ic_top3.svg'
+import IcTop1 from '../../assets/images/referral/ic_top1.svg'
+import IcTop2 from '../../assets/images/referral/ic_top2.svg'
+import IcTop3 from '../../assets/images/referral/ic_top3.svg'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { setAlert } from '@/reducers/alert'

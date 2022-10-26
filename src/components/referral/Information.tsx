@@ -34,7 +34,7 @@ const Information = () => {
         Information
       </span>
       <div className="grid md:grid-cols-2 grid-cols-1 w-full items-center gap-8">
-        <div className="staking__information p-6">
+        <div className="referral__information p-6">
           <ul className=" ml-4">
             <li className="font-poppins font-medium text-base text-white list-disc">
               Users will stake MSP Tokens in exchange for points and have a top
@@ -58,7 +58,7 @@ const Information = () => {
           </ul>
         </div>
         <div className="border-[0.5px] border-[#353A45] rounded-xl overflow-hidden">
-          <table className="staking__information__table w-full xl:p-4">
+          <table className="referral__information__table w-full xl:p-4">
             <thead>
               <tr>
                 {tableHead.map((item, index) => (
