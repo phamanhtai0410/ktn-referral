@@ -1,8 +1,8 @@
 version: "3"
 
 services:
-  service:
-    image: web
+  referral-web:
+    image: referral-web
     build:
         context: .
         dockerfile: Dockerfile
