@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  service:
+    image: web
+    build:
+        context: .
+        dockerfile: Dockerfile
+    restart: always
+    volumes:
+      - ./:/webapps
+    ports:
+      - 5553:80
+    networks:
+      - base-network
+
+
+
+networks:
+  base-network:
+    external: true
