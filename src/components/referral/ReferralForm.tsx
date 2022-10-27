@@ -16,7 +16,8 @@ const ReferralForm = () => {
   const referralCode = useSelector(selectReferralCode)
 
   const onCopy = (value) => {
-    copyTextToClipboard(value)
+    let url = window.location.href + '?ref=' + value
+    copyTextToClipboard(url)
     dispatch(
       setAlert({
         type: 'success',
