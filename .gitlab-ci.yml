@@ -1,7 +1,6 @@
 variables:
   REGION: asia-southeast1
   IMAGE_NAME: ktn-referral
-  CONTAINER_REPO_ASIA: 968557029040.dkr.ecr.ap-southeast-1.amazonaws.com/stag/ktn-referral
   CONTAINER_REPO_ASIA_STAG: 968557029040.dkr.ecr.ap-southeast-1.amazonaws.com/stag/ktn-referral
   NAMESPACE: ktn-website-stag
   FULLREPO_ASIA: $CONTAINER_REPO_ASIA:$CI_COMMIT_SHORT_SHA
@@ -56,7 +55,7 @@ build:
       if [ "$CI_COMMIT_REF_NAME" == "stag" ]; then
         sed -i -e "s#\[NAMESPACE\]#$NAMESPACE#g" skaffold.yaml
         sed -i -e "s#\[IMAGE_NAME\]#$IMAGE_NAME#g" skaffold.yaml
-        sed -i -e "s#\[CONTAINER_REPO\]#$CONTAINER_REPO_ASIA#g" skaffold.yaml
+        sed -i -e "s#\[CONTAINER_REPO\]#$CONTAINER_REPO_ASIA_STAG#g" skaffold.yaml
       fi
     - cat skaffold.yaml  
     - /usr/local/bin/skaffold build -p profile-stag --file-output=build.json
