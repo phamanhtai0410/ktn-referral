@@ -58,6 +58,7 @@ build:
         sed -i -e "s#\[IMAGE_NAME\]#$IMAGE_NAME#g" skaffold.yaml
         sed -i -e "s#\[CONTAINER_REPO\]#$CONTAINER_REPO_ASIA#g" skaffold.yaml
       fi
+    - cat skaffold.yaml  
     - /usr/local/bin/skaffold build -p profile-stag --file-output=build.json
   only:
     refs:
