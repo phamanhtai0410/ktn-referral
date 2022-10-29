@@ -27,3 +27,22 @@ export interface IWalletModel{
     balance: string,
     easyWeb3:any | void,
 }
+
+/** MY NFTS */
+export interface IMyNFTModel{
+    token_id: number,
+    address: string,
+    name: string,
+    type: number,
+    created_time: number,
+    rarity: number,
+    price: string,
+    token_uri: string,
+    is_staking: boolean,
+}
+
+export interface IMyNFTsArrayModel{
+    items: IMyNFTModel[],
+    pagination:IPagination,
+    loading: boolean
+}

@@ -4,7 +4,7 @@ import { join } from 'path'
 import react from '@vitejs/plugin-react'
 import { visualizer } from 'rollup-plugin-visualizer'
 import autoImport from 'unplugin-auto-import/vite'
-import windiCSS from 'vite-plugin-windicss'
+// import windiCSS from 'vite-plugin-windicss'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import nodePolyfills from 'rollup-plugin-polyfill-node'
 
@@ -95,7 +95,7 @@ export default defineConfig(({ command, mode }) => {
         //   },
         //   exportStatic: {},
         // }),
-        windiCSS(),
+        // windiCSS(),
         visualizer(),
         !production && mode === "development" && nodePolyfills({
             include: [

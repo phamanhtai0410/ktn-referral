@@ -7,6 +7,8 @@ import { selectWalletAccount } from '@/reducers/walletSlice'
 import LeaderBoard from './LeaderBoard'
 import Information from './Information'
 import ReferralForm from './ReferralForm'
+import ModalClaim from './ModalClaim'
+import Claim from './Claim'
 
 const ReferralPage = () => {
   const dispatch = useAppDispatch()
@@ -23,12 +25,12 @@ const ReferralPage = () => {
       <div className="referral__main pt-40 pb-12 relative flex flex-col items-center min-h-[1254px] sm:px-0 px-4">
         <div className="container">
           <ReferralForm />
-
+          <Claim />
           <LeaderBoard event="top_referral" />
-
           <Information />
         </div>
       </div>
+      <ModalClaim />
     </section>
   )
 }

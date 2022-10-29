@@ -1,3 +1,4 @@
+
 [
 	{
 		"inputs": [
@@ -134,25 +135,6 @@
 		"inputs": [
 			{
 				"indexed": false,
-				"internalType": "uint56",
-				"name": "index",
-				"type": "uint56"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256[]",
-				"name": "list",
-				"type": "uint256[]"
-			}
-		],
-		"name": "Debug",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
 				"internalType": "uint8",
 				"name": "version",
 				"type": "uint8"
@@ -205,7 +187,54 @@
 				"type": "tuple[]"
 			}
 		],
-		"name": "MintOrder",
+		"name": "MintOrderForDev",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "callbackData",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "tokenId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint8",
+						"name": "rarity",
+						"type": "uint8"
+					},
+					{
+						"internalType": "string",
+						"name": "cid",
+						"type": "string"
+					},
+					{
+						"internalType": "uint8",
+						"name": "nftType",
+						"type": "uint8"
+					}
+				],
+				"indexed": false,
+				"internalType": "struct CharacterTokenDetails.ReturnMintingOrder[]",
+				"name": "returnMintingOrder",
+				"type": "tuple[]"
+			}
+		],
+		"name": "MintOrderFromDaapCreator",
 		"type": "event"
 	},
 	{
@@ -1109,7 +1138,47 @@
 				"type": "bytes"
 			}
 		],
-		"name": "mint",
+		"name": "mintOrderForDev",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"components": [
+					{
+						"internalType": "uint8",
+						"name": "rarity",
+						"type": "uint8"
+					},
+					{
+						"internalType": "string",
+						"name": "cid",
+						"type": "string"
+					},
+					{
+						"internalType": "uint8",
+						"name": "nftType",
+						"type": "uint8"
+					}
+				],
+				"internalType": "struct CharacterTokenDetails.MintingOrder[]",
+				"name": "_mintingOrders",
+				"type": "tuple[]"
+			},
+			{
+				"internalType": "address",
+				"name": "_to",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "_callbackData",
+				"type": "string"
+			}
+		],
+		"name": "mintOrderFromDaapCreator",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
