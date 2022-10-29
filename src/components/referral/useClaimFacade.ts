@@ -1,4 +1,4 @@
-import { fetchReferralCode, fetchUserRank, unStakeAll } from '@/actions/referralActions'
+import { fetchReferralCode, fetchUserRank } from '@/actions/referralActions'
 import { useAppDispatch } from '@/app/hooks'
 import { setAlert } from '@/reducers/alert'
 import { selectMyNFTs } from '@/reducers/myNFTsSlice'
@@ -87,9 +87,9 @@ const useClaimFacade = () => {
     if (step === 1 || step === 2) {
     }
     if (step === 3) {
-      setIsClaiming(true)
-      dispatch(unStakeAll())
-      setIsClaiming(false)
+      // setIsClaiming(true)
+      // dispatch(unStakeAll())
+      // setIsClaiming(false)
     }
     if (step === 4) {
     }
