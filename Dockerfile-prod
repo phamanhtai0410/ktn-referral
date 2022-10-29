@@ -11,7 +11,7 @@ COPY package.json /ktn
 RUN yarn install
 
 COPY . /ktn
-RUN npm run build-prod
+RUN npm run build:production
 
 
 # Stage 2

@@ -5,7 +5,7 @@ services:
     image: referral-web
     build:
         context: .
-        dockerfile: Dockerfile
+        dockerfile: Dockerfile-prod
     restart: always
     volumes:
       - ./:/webapps
