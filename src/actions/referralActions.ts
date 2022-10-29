@@ -62,51 +62,51 @@ export const fetchListMyNFTs = createAsyncThunk(
     }
 )
 
-export const unStakeAll = createAsyncThunk(
-    'referral/unStakeAll',
-    async (_, { dispatch, getState ,rejectWithValue}) => {
+// export const unStakeAll = createAsyncThunk(
+//     'referral/unStakeAll',
+//     async (_, { dispatch, getState ,rejectWithValue}) => {
 
-        const rootState = getState() as RootState;
-        const  { easyWeb3, address} = rootState.wallet;
+//         const rootState = getState() as RootState;
+//         const  { easyWeb3, address} = rootState.wallet;
 
-        const signer = easyWeb3.getSigner();
+//         const signer = easyWeb3.getSigner();
 
-        try {
+//         try {
 
-            if(signer && ADDRESS_NFT ){
-                const contractStaking = new ethers.Contract(
-                    ADDRESS_STAKING,
-                    ABI_STAKING,
-                    signer,
-                )
-                let nftsTxn = await contractStaking.unstakeAll(
-                    ADDRESS_NFT
-                );
+//             if(signer && ADDRESS_NFT ){
+//                 const contractStaking = new ethers.Contract(
+//                     ADDRESS_STAKING,
+//                     ABI_STAKING,
+//                     signer,
+//                 )
+//                 let nftsTxn = await contractStaking.unstakeAll(
+//                     ADDRESS_NFT
+//                 );
                 
-                console.log("Unstaking all ... please wait");
-                await nftsTxn.wait();
-                if (nftsTxn?.hash) {
-                    dispatch(
-                        setAlert({
-                          type: 'success',
-                          key: randomKeyUUID(),
-                          message: {
-                            status: 'success',
-                            title: 'Unstaked all successfully!',
-                          },
-                        }),
-                      )
-                }
-                console.log(`Unstaked all, see transaction: https://rinkeby.etherscan.io/tx/${nftsTxn.hash}`);
+//                 console.log("Unstaking all ... please wait");
+//                 await nftsTxn.wait();
+//                 if (nftsTxn?.hash) {
+//                     dispatch(
+//                         setAlert({
+//                           type: 'success',
+//                           key: randomKeyUUID(),
+//                           message: {
+//                             status: 'success',
+//                             title: 'Unstaked all successfully!',
+//                           },
+//                         }),
+//                       )
+//                 }
+//                 console.log(`Unstaked all, see transaction: https://rinkeby.etherscan.io/tx/${nftsTxn.hash}`);
 
-            }
+//             }
             
             
-        } catch (err) {
-            return rejectWithValue(err)
-        }
-    }
-)
+//         } catch (err) {
+//             return rejectWithValue(err)
+//         }
+//     }
+// )
 
 export const submitReferralCode = createAsyncThunk(
     'referral/submitReferralCode',
