@@ -1,7 +1,7 @@
 
 import axiosClient from "./axiosClient"
 
-import { LEADER_BOARD_LIST_ITEMS, GET_REFERRAL_CODE, VALIDATE_REFERRAL_CODE, SUBMIT_REFERRAL_CODE } from "./endpoint"
+import { LEADER_BOARD_LIST_ITEMS, GET_REFERRAL_CODE, VALIDATE_REFERRAL_CODE, SUBMIT_REFERRAL_CODE, EXCHANGE_INFO, GET_LIST_MY_NFTS } from "./endpoint"
 
 export const referralService = {
 
@@ -19,6 +19,18 @@ export const referralService = {
 
   getListLeaderBoard: (params) => {
     return axiosClient.get(LEADER_BOARD_LIST_ITEMS, { params })
+  },
+
+  getExchangeInfo: (params) => {
+    return axiosClient.get(EXCHANGE_INFO, { params })
+  },
+
+  exchange: (params) => {
+    return axiosClient.post(EXCHANGE_INFO, params)
+  },
+
+  getListMyNFTs: (params) => {
+    return axiosClient.get(GET_LIST_MY_NFTS, { params })
   },
 
 }

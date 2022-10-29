@@ -16,7 +16,8 @@ const ReferralForm = () => {
   const referralCode = useSelector(selectReferralCode)
 
   const onCopy = (value) => {
-    let url = window.location.href + '?ref=' + value
+    let homeUrl: string = import.meta.env.VITE_HOME_URL.toString() || ''
+    let url = homeUrl + '?r=' + value
     copyTextToClipboard(url)
     dispatch(
       setAlert({
@@ -48,11 +49,11 @@ const ReferralForm = () => {
   }
 
   useEffect(() => {
-    setInputReferralCode(searchParams.get('ref') || '')
+    setInputReferralCode(searchParams.get('r') || '')
   }, [searchParams])
 
   return (
-    <div className="flex flex-col w-full space-y-4 max-w-[1280px]">
+    <div className="flex flex-col w-full space-y-4">
       <span className="font-oxanium font-bold text-2xl text-[#FFA52C]">
         Referral
       </span>

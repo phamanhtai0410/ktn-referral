@@ -11,7 +11,6 @@ const AlertMessages = () => {
   const alert = useSelector(selectAlert)
   const getItemAlert = useCallback(
     (item) => {
-      console.log('first', item)
       const key = item.key || randomKeyUUID()
       const option = {
         toastId: key,
@@ -39,7 +38,10 @@ const AlertMessages = () => {
           toast.success(option.render, option)
           break
         case 'info':
-          toast.info(option.render, option)
+          toast.info(option.render, {
+            ...option,
+            autoClose: false,
+          })
           break
         case 'loading':
           toast.loading(option.render, {
@@ -59,7 +61,6 @@ const AlertMessages = () => {
 
   useEffect(() => {
     if (alert && alert.type) {
-      console.log('alert', alert)
       getItemAlert(alert)
     }
   }, [alert, getItemAlert])
@@ -67,7 +68,7 @@ const AlertMessages = () => {
   return (
     <ToastContainer
       toastClassName={() =>
-        'relative flex mb-3 px-4 py-4 border border-[#81715C] backdrop-blur-[25px] rounded-md justify-between overflow-hidden cursor-pointer'
+        'relative flex mb-3 border border-[#81715C] backdrop-blur-[25px] rounded-md justify-between overflow-hidden'
       }
       position={toast.POSITION.BOTTOM_RIGHT}
       hideProgressBar={false}

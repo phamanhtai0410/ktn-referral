@@ -141,6 +141,12 @@
 			},
 			{
 				"indexed": false,
+				"internalType": "uint256[]",
+				"name": "ids",
+				"type": "uint256[]"
+			},
+			{
+				"indexed": false,
 				"internalType": "address",
 				"name": "nftCollection",
 				"type": "address"
