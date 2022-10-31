@@ -54,6 +54,17 @@ export const useEasyWeb3 = (cb?: Web3Callback) => {
     }
   }, [connectState])
 
+  useEffect(() => {
+    const wallet = easyWeb3.getWalletInfo();
+    if(wallet.chainId !== walletInfo.chainId){
+      dispatch(setReducerWalletInfo({ 
+        ...easyWeb3.getWalletInfo(),
+        ...{
+          easyWeb3
+      }}))
+    }
+  }, [easyWeb3])
+
   return { easyWeb3, connectState, walletInfo }
   
 }

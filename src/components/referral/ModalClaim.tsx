@@ -10,6 +10,9 @@ import { useState } from 'react'
 import { fetchExchangeInfo } from '@/actions/referralActions'
 import { useAppDispatch } from '@/app/hooks'
 import BtnClaim from './BtnClaim'
+import { useSelector } from 'react-redux'
+import { selectEasyWeb3 } from '@/reducers/walletSlice'
+import { EasyWeb3 } from '@/service/web3'
 
 const customStyles = {
   content: {
@@ -34,6 +37,7 @@ const ModalClaim = () => {
     setStep,
   } = useClaimFacade()
 
+  const easyWeb3Data = useSelector(selectEasyWeb3)
   const [point, setPoint] = useState('')
   const setMaxPoint = (point) => {
     setPoint(point)
@@ -47,7 +51,17 @@ const ModalClaim = () => {
   }
 
   const claim = async (point) => {
-    await dispatch(fetchExchangeInfo({ amount: point, event: 'top_referral' }))
+    let acceptChain: number = import.meta.env.VITE_CHAIN_ID
+    if (acceptChain !== easyWeb3Data?.walletInfo?.chainId) {
+      const result = await EasyWeb3.getInstance().switchEthereumCChain(
+        acceptChain,
+      )
+      if (result !== undefined) {
+        await dispatch(
+          fetchExchangeInfo({ amount: point, event: 'top_referral' }),
+        )
+      }
+    }
     closeModal()
   }
 

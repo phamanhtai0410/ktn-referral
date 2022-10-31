@@ -165,6 +165,34 @@ class EasyWeb3 {
     }
   }
 
+  public switchEthereumCChain = async (chainID:number): Promise<void> => {
+
+    try {
+      return await window.ethereum.request({ 
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: `0x${Number(chainID).toString(16)}` }] 
+      })
+    } catch (switchError) {
+        // This error code indicates that the chain has not been added to MetaMask.
+        // if (switchError.code === 4902) {
+        //   try {
+        //     await window.ethereum.request({
+        //       method: 'wallet_addEthereumChain',
+        //       params: [
+        //         {
+        //           chainId: '0xf00',
+        //           chainName: '...',
+        //           rpcUrls: ['https://...'] /* ... */,
+        //         },
+        //       ],
+        //     });
+        //   } catch (addError) {
+        //     // handle "add" error
+        //   }
+        // }
+    }
+  }
+
   /**
    * subscribe provider event
    * @param provider
