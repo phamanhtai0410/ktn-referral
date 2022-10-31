@@ -42,7 +42,7 @@ const Claim = () => {
             My Rank
           </span>
         </div>
-        <div className="flex flex-row items-center justify-between">
+        <div className="flex flex-wrap items-center justify-between">
           <div className="flex flex-row items-center space-x-3">
             <span className="font-poppins font-bold text-xl text-white">
               Rank:
@@ -54,6 +54,14 @@ const Claim = () => {
           <div className="flex flex-row items-center space-x-3">
             <span className="font-poppins font-bold text-xl text-white">
               Point:
+            </span>
+            <span className="font-poppins font-bold text-xl text-[#FFA52C]">
+              {userRank?.point || '0'}
+            </span>
+          </div>
+          <div className="flex flex-row items-center space-x-3">
+            <span className="font-poppins font-bold text-xl text-white">
+              Total Earned:
             </span>
             <span className="font-poppins font-bold text-xl text-[#FFA52C]">
               {referralInfo?.total_earn
