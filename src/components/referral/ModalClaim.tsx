@@ -170,7 +170,7 @@ const ModalClaim = () => {
                   />
                   <button
                     className="absolute right-4 font-poppins font-bold text-align text-base text-[#FFA52C]"
-                    onClick={() => setMaxPoint(userRank?.point)}
+                    onClick={() => setMaxPoint(referralInfo?.total_earn)}
                   >
                     MAX
                   </button>
