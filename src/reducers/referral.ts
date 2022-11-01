@@ -54,7 +54,7 @@ const referralSlice = createSlice({
         })
         builder.addCase(fetchExchangeInfo.rejected, (state, action) => {
             state.claim.isPending= false;
-            state.claim.status= "";
+            state.claim.status= "REJECTED";
         })
     },
 })
