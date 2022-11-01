@@ -121,6 +121,18 @@ const useClaimFacade = () => {
       dispatch(fetchUserRank({ event: 'top_referral', search: walletAccount }))
       listenClaimEvent();
     }
+    else if (!claim?.isPending && claim?.status==="REJECTED") {
+      dispatch(
+        setAlert({
+          type: 'error',
+          key: randomKeyUUID(),
+          message: {
+            status: 'error',
+            title: 'Please wait a minute before you try again!',
+          },
+        }),
+      )
+    }
   }, [claim])
 
   return {

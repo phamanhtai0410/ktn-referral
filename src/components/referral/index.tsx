@@ -15,9 +15,7 @@ const ReferralPage = () => {
   const walletAccount = useSelector(selectWalletAccount)
 
   useEffect(() => {
-    if (walletAccount) {
-      dispatch(fetchReferralCode({ address: walletAccount }))
-    }
+    dispatch(fetchReferralCode({ address: walletAccount }))
   }, [walletAccount])
 
   return (
