@@ -48,3 +48,6 @@ typings/
 .idea
 auto-imports.d.ts
 .eslintrc-auto-import.json
+
+skaffold.yaml
+.gitlab-ci.yml
