@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  referral-web:
+    image: referral-web
+    build:
+        context: .
+        dockerfile: Dockerfile-prod
+    restart: always
+    volumes:
+      - ./:/webapps
+    ports:
+      - 5553:80
+    networks:
+      - base-network
+
+
+
+networks:
+  base-network:
+    external: true
