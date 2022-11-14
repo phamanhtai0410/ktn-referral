@@ -1,11 +1,13 @@
-import { fetchGetMessage } from '@/actions/userActions'
-import { useAppDispatch } from '@/app/hooks'
+
 import { LocalStorageService } from '@/_helpers'
 import { ethers } from 'ethers'
 import Web3Modal from 'web3modal'
 import { userService } from '../user.service'
+import { CHAIN_ID_BSC } from './constants/config'
 import { EventBus, Registry } from './helper/event-bus'
+import { networks } from './helper/networks'
 import { getChainData } from './helper/utilities'
+import { getProviderOptions } from './provider'
 import {
   IConnectInfo,
   IProviderMessage,
@@ -54,7 +56,7 @@ class EasyWeb3 {
     this.web3Modal = new Web3Modal({
       network: this.getNetwork(),
       cacheProvider: true,
-      // providerOptions: getProviderOptions(),
+      providerOptions: getProviderOptions(),
     })
   }
 
@@ -73,7 +75,7 @@ class EasyWeb3 {
   private async web3PersonalSign(message:string, account:string) {
 
     try {
-        return await window.ethereum.request({ method: "personal_sign", params: [message,account] })
+        return await this.web3Provider.provider.request({ method: "personal_sign", params: [message,account] })
     } catch (error) {
         console.error(error);
         return false;
@@ -81,43 +83,46 @@ class EasyWeb3 {
 
   };
 
-
-  /**
+ /**
    * get message to wallet
    */
   public async getMessageWallet() {
 
-      try {
+    const connectNotify = async () => {
+      await this.updateWalletInfo()
+      this.connectState = ConnectState.Connected
+      EventBus.getInstance().dispatch<IWeb3Event>(WEB3_MESSAGE, {
+        type: Web3EventType.Provider_Connect,
+      })
+    }
 
-        if(window.ethereum){
+    try {
 
-          await window.ethereum.request({
-            method: "wallet_requestPermissions",
-            params: [
-                {
-                    eth_accounts: {}
-                }
-            ]
-          });
-
-            const instance = await this.web3Modal.connect();
-            await this.subscribeProvider(instance)
-            this.web3Provider = new ethers.providers.Web3Provider(instance, 'any')
-  
-            const signer = this.web3Provider!.getSigner()
-            this.walletInfo.address = await signer.getAddress();
-
-            const {data} = await userService.getMessage(this.walletInfo);
- 
-            if(data && data.message){
-              const signature = await this.web3PersonalSign(data.message,data.address);
-              return{
-                ...data,
-                signature
-              }
-            }
-
+        if (!this.web3Provider) {
+          const instance = await this.web3Modal.connect();
+          await this.subscribeProvider(instance)
+          this.web3Provider = new ethers.providers.Web3Provider(instance, 'any')
         }
+
+        const userAddress = await this.web3Provider.getSigner().getAddress()
+
+        const {data} = await userService.getMessage({address:userAddress})
+
+        if(data && data.message){
+
+          const signature = await this.web3PersonalSign(data.message,data.address);
+          if(signature){
+            connectNotify()
+            LocalStorageService.setAccount(data.address)
+            return{
+              ...data,
+              signature
+            }
+          }
+      
+        }
+        
+        this.disconnect()
           
       }catch(error){  
         console.log(TAG, 'getMessageWallet', error)
@@ -165,31 +170,32 @@ class EasyWeb3 {
     }
   }
 
-  public switchEthereumCChain = async (chainID:number): Promise<void> => {
+  /**
+   * switchEthereumChain
+   */
+   public switchEthereumChain = async (chainID:number): Promise<void> => {
 
     try {
-      return await window.ethereum.request({ 
-        method: 'wallet_switchEthereumChain',
-        params: [{ chainId: `0x${Number(chainID).toString(16)}` }] 
-      })
+
+     // return await this.web3Provider.send("wallet_switchEthereumChain",[{ chainId: `0x${Number(chainID).toString(16)}` }] )
+      await this.web3Provider.provider.request({
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId: `0x${Number(chainID).toString(16)}` }],
+      });
     } catch (switchError) {
         // This error code indicates that the chain has not been added to MetaMask.
-        // if (switchError.code === 4902) {
-        //   try {
-        //     await window.ethereum.request({
-        //       method: 'wallet_addEthereumChain',
-        //       params: [
-        //         {
-        //           chainId: '0xf00',
-        //           chainName: '...',
-        //           rpcUrls: ['https://...'] /* ... */,
-        //         },
-        //       ],
-        //     });
-        //   } catch (addError) {
-        //     // handle "add" error
-        //   }
-        // }
+        if (switchError.code === 4902) {
+          try {
+
+            await this.web3Provider.provider.request({
+              method: "wallet_addEthereumChain",
+              params: [networks[CHAIN_ID_BSC]],
+            });
+
+          } catch (addError) {
+            // handle "add" error
+          }
+        }
     }
   }
 
@@ -354,7 +360,7 @@ class EasyWeb3 {
     this.walletInfo.address = await signer.getAddress()
     this.walletInfo.chainId = await signer.getChainId()
     this.walletInfo.network = await this.web3Provider!.getNetwork()
-    this.walletInfo.balance = await this.getBalance()
+    //this.walletInfo.balance = await this.getBalance()
     // console.log(TAG, 'updateWalletInfo', this.walletInfo)
   }
   /**
