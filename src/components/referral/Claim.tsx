@@ -76,6 +76,7 @@ const Claim = () => {
               { 'bg-[#FFA52C] text-white': walletAccount },
               { 'bg-[#4D4233] text-[#806B4F]': !walletAccount },
             )}
+            disabled={!walletAccount}
             onClick={() => {
               onClickClaim()
             }}
