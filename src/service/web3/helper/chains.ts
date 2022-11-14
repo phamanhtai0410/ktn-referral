@@ -33,7 +33,7 @@ const supportedChains: IChainData[] = [
       balance: '',
     },
   },
-  /*
+  /**/
   {
     name: 'Ethereum Rinkeby',
     short_name: 'rin',
@@ -241,7 +241,7 @@ const supportedChains: IChainData[] = [
       contractAddress: '',
       balance: '',
     },
-  },*/
+  },
 ]
 
 export default supportedChains
