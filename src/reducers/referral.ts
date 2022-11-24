@@ -24,6 +24,9 @@ const referralSlice = createSlice({
         openModalClaim(state,action){
             state.isOpenModalClaim = action.payload.isOpen;
         },
+        clearReferralCode(state,action){
+            state.referralCode = <IReferralCode>{};
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(fetchReferralCode.fulfilled, (state, action) => {
@@ -59,7 +62,7 @@ const referralSlice = createSlice({
     },
 })
 
-export const { openModalClaim } = referralSlice.actions;
+export const { openModalClaim, clearReferralCode } = referralSlice.actions;
 export default referralSlice.reducer;
 
 // create and export the selector

@@ -31,7 +31,7 @@ const Information = () => {
   return (
     <div className="flex flex-col space-y-4 mt-8 w-full">
       <span className="font-oxanium font-bold text-2xl text-[#FFA52C]">
-        Information
+        Rule
       </span>
       <div className="grid md:grid-cols-2 grid-cols-1 w-full items-center gap-8">
         <div className="referral__information p-6">
