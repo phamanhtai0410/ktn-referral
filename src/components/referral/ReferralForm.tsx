@@ -9,10 +9,12 @@ import { copyTextToClipboard, randomKeyUUID } from '@/_helpers/utils/lib'
 import { LocalStorageService } from '@/_helpers'
 import { useSearchParams } from 'react-router-dom'
 import { setAlert } from '@/reducers/alert'
+import { selectWalletAccount } from '@/reducers/walletSlice'
 
 const ReferralForm = () => {
   const dispatch = useAppDispatch()
   const [searchParams, setSearchParams] = useSearchParams()
+  const walletAccount = useSelector(selectWalletAccount)
   const referralCode = useSelector(selectReferralCode)
 
   const onCopy = (value) => {
@@ -96,11 +98,11 @@ const ReferralForm = () => {
               Total Earned:
             </span>
             <span className="font-poppins font-bold text-xl text-[#FFA52C]">
-              {referralCode?.total_earn}
+              {referralCode?.total_earn || '--'}
             </span>
           </div>
         </div>
-        {!referralCode?.code_linked && (
+        {walletAccount && !referralCode?.code_linked && (
           <div className="flex flex-col w-full">
             <div className="mt-[26px] mb-6 h-[1px] border border-dashed border-[#81715C]"></div>
 
