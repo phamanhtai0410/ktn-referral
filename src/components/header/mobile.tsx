@@ -55,7 +55,7 @@ const HeaderMobile = () => {
   }
   //styling listItemButton
   const text = {
-    lineheight: '10px',
+    lineHeight: '10px',
     BorderBottom: '1px solid white',
   }
   const drawerList = () => (
