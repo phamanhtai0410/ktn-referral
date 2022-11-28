@@ -1,13 +1,15 @@
 
 import { LocalStorageService } from '@/_helpers'
 import { ethers } from 'ethers'
-import Web3Modal from 'web3modal'
+import Web3Modal  from 'web3modal'
 import { userService } from '../user.service'
 import { CHAIN_ID_BSC } from './constants/config'
 import { EventBus, Registry } from './helper/event-bus'
 import { networks } from './helper/networks'
 import { getChainData } from './helper/utilities'
 import { getProviderOptions } from './provider'
+
+
 import {
   IConnectInfo,
   IProviderMessage,
@@ -19,6 +21,7 @@ import {
   Web3EventType,
   IWeb3Event,
   ConnectState,
+  IWatchAssetParameters,
 } from './types'
 
 const TAG = 'EasyWeb3'
@@ -29,6 +32,11 @@ const DEFAULT_WALLET_INFO: IWalletInfo = {
   network: {},
   balance: '0',
 }
+
+const ChainsDev= [
+  97, // BSC test network
+  5,  // Goerli test network
+]
 
 const WEB3_MESSAGE = 'web3-message'
 
@@ -42,8 +50,8 @@ class EasyWeb3 {
   private web3Provider?: ethers.providers.Web3Provider
   private walletInfo: IWalletInfo = DEFAULT_WALLET_INFO
   private chainId = 1
-  private connectState: ConnectState = ConnectState.Disconnected
-  private message: IMessageInfo
+  public connectState: ConnectState = ConnectState.Disconnected
+  public chainsDev= ChainsDev
 
   public static getInstance(): EasyWeb3 {
     if (!EasyWeb3.instance) {
@@ -53,13 +61,15 @@ class EasyWeb3 {
   }
 
   private constructor() {
+
     this.web3Modal = new Web3Modal({
       network: this.getNetwork(),
       cacheProvider: true,
       providerOptions: getProviderOptions(),
     })
+    
   }
-
+  
   public getNetwork = () => getChainData(this.chainId).network
 
   /**
@@ -73,17 +83,15 @@ class EasyWeb3 {
   }
 
   private async web3PersonalSign(message:string, account:string) {
-
     try {
-        return await this.web3Provider.provider.request({ method: "personal_sign", params: [message,account] })
+        return await this.web3Provider.send("personal_sign",[message,account])
     } catch (error) {
         console.error(error);
         return false;
     }
-
   };
 
- /**
+  /**
    * get message to wallet
    */
   public async getMessageWallet() {
@@ -105,6 +113,8 @@ class EasyWeb3 {
         }
 
         const userAddress = await this.web3Provider.getSigner().getAddress()
+
+        await this.web3Provider.listAccounts();
 
         const {data} = await userService.getMessage({address:userAddress})
 
@@ -143,12 +153,13 @@ class EasyWeb3 {
     }
 
     try {
-
+      
       if (this.connectState == ConnectState.Connected) {
         return
       } else if (this.connectState == ConnectState.Connecting) {
         return
       }
+
       this.connectState = ConnectState.Connecting
       EventBus.getInstance().dispatch<IWeb3Event>(WEB3_MESSAGE, {
         type: Web3EventType.Connecting,
@@ -169,6 +180,7 @@ class EasyWeb3 {
       })
     }
   }
+
 
   /**
    * switchEthereumChain
@@ -196,6 +208,17 @@ class EasyWeb3 {
             // handle "add" error
           }
         }
+    }
+  }
+
+  /**
+   * WalletAssetAddress
+   */
+  public WalletAssetAddress = async (params:IWatchAssetParameters): Promise<void> => {
+    try {
+      return  await window.ethereum.request({ method: 'wallet_watchAsset' }, params)
+    } catch (switchError) {
+      console.log("----switchError---WalletAssetAddress",switchError)
     }
   }
 
@@ -230,6 +253,7 @@ class EasyWeb3 {
         })
       }
     )
+
     provider.on(Web3EventType.Provider_Connect, async (info: IConnectInfo) => {
       console.log(TAG, Web3EventType.Provider_Connect, info)
       this.connectState = ConnectState.Connected
@@ -255,8 +279,10 @@ class EasyWeb3 {
     provider.on(
       Web3EventType.Provider_ChainChanged,
       async (chainId: string) => {
-        console.log(TAG, Web3EventType.Provider_ChainChanged, chainId)
-        await this.updateWalletInfo()
+        console.log("Web3EventType.Provider_ChainChanged",chainId);
+       // console.log(TAG, Web3EventType.Provider_ChainChanged, chainId)
+       const walletInfo = await this.updateWalletInfo();
+
         EventBus.getInstance().dispatch<IWeb3Event>(WEB3_MESSAGE, {
           type: Web3EventType.Provider_ChainChanged,
           data: chainId,
@@ -305,6 +331,7 @@ class EasyWeb3 {
   public getConnectState(): ConnectState {
     return this.connectState
   }
+  
   /**
    *
    * @returns
@@ -360,8 +387,9 @@ class EasyWeb3 {
     this.walletInfo.address = await signer.getAddress()
     this.walletInfo.chainId = await signer.getChainId()
     this.walletInfo.network = await this.web3Provider!.getNetwork()
-    //this.walletInfo.balance = await this.getBalance()
-    // console.log(TAG, 'updateWalletInfo', this.walletInfo)
+    // this.walletInfo.balance = await this.getBalance()
+    this.chainId = await signer.getChainId()
+    console.log(TAG, 'updateWalletInfo', this.walletInfo)
   }
   /**
    * disconnect
