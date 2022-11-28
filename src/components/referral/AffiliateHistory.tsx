@@ -1,7 +1,7 @@
 import Pagination from '@/components/_partials/Pagination'
 import { CSSTransition, SwitchTransition } from 'react-transition-group'
 import { useSelector } from 'react-redux'
-import { addressWalletCompact } from '@/_helpers/utils/lib'
+import { addressWalletCompact, formatDateTime } from '@/_helpers/utils/lib'
 import { selectReferralCode } from '@/reducers/referral'
 import { selectWalletAccount } from '@/reducers/walletSlice'
 
@@ -42,16 +42,33 @@ const AffiliateHistory = () => {
                         {index + 1}
                       </span>
                       <span className="font-poppins font-normal text-base text-white text-center">
-                        {item.address_level_1? addressWalletCompact(item.address_level_1):"-"}
+                        {item.address_level_1
+                          ? addressWalletCompact(item.address_level_1)
+                          : '-'}
                       </span>
                       <span className="font-poppins font-normal text-base text-white text-center">
-                        {item.updated_time_level_1 ? item.updated_time_level_1 :"-"}
+                        {item.updated_time_level_1
+                          ? formatDateTime(
+                              'date',
+                              item.updated_time_level_1 * 1000,
+                              'YYYY/MM/DD',
+                            )
+                          : '-'}
+                      </span>
+
+                      <span className="font-poppins font-normal text-base text-white text-center">
+                        {item.address_level_2
+                          ? addressWalletCompact(item.address_level_2)
+                          : '-'}
                       </span>
                       <span className="font-poppins font-normal text-base text-white text-center">
-                        {item.address_level_2 ? addressWalletCompact(item.address_level_2) :"-"}
-                      </span>
-                      <span className="font-poppins font-normal text-base text-white text-center">
-                        {item.updated_time_level_2 ? item.updated_time_level_2 :"-"}
+                        {item.updated_time_level_2
+                          ? formatDateTime(
+                              'date',
+                              item.updated_time_level_2 * 1000,
+                              'YYYY/MM/DD',
+                            )
+                          : '-'}
                       </span>
                     </div>
                   </CSSTransition>
