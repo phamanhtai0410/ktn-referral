@@ -42,16 +42,16 @@ const AffiliateHistory = () => {
                         {index + 1}
                       </span>
                       <span className="font-poppins font-normal text-base text-white text-center">
-                        {addressWalletCompact(item.address_level_1)}
+                        {item.address_level_1? addressWalletCompact(item.address_level_1):"-"}
                       </span>
                       <span className="font-poppins font-normal text-base text-white text-center">
-                        {item.updated_time_level_1}
+                        {item.updated_time_level_1 ? item.updated_time_level_1 :"-"}
                       </span>
                       <span className="font-poppins font-normal text-base text-white text-center">
-                        {addressWalletCompact(item.address_level_2)}
+                        {item.address_level_2 ? addressWalletCompact(item.address_level_2) :"-"}
                       </span>
                       <span className="font-poppins font-normal text-base text-white text-center">
-                        {item.updated_time_level_2}
+                        {item.updated_time_level_2 ? item.updated_time_level_2 :"-"}
                       </span>
                     </div>
                   </CSSTransition>
