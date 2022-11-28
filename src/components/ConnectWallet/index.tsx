@@ -21,7 +21,7 @@ const ConnectWallet = () => {
   const web3callback: Web3Callback = (e: IWeb3Event) => {
     switch (e.type) {
       case Web3EventType.Provider_Disconnect:
-        alert(typeof e.data == 'string' ? e.data : JSON.stringify(e.data))
+        // alert(typeof e.data == 'string' ? e.data : JSON.stringify(e.data))
         break
     }
   }
