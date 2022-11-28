@@ -48,7 +48,7 @@ const Claim = () => {
               Rank:
             </span>
             <span className="font-poppins font-bold text-xl text-[#FFA52C]">
-              {userRank?.rank || '-'}
+              {userRank?.rank && userRank?.rank > 0 ? userRank?.rank : '--'}
             </span>
           </div>
           <div className="flex flex-row items-center space-x-3">
