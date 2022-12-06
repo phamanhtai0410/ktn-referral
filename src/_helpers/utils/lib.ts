@@ -1,5 +1,6 @@
 /* eslint-disable no-extend-native */
 import { v4 as uuidv4 } from "uuid";
+import moment from "moment-timezone";
 
 export const addressWalletCompact = (address) => {
   return `${address.slice(0, 6)}...${address.slice(
@@ -19,3 +20,14 @@ export async function copyTextToClipboard(text) {
 export const randomKeyUUID = () => {
   return uuidv4();
 };
+
+export function formatDateTime(type, timeStamp, format) {
+  let result = "";
+  if (type === "date") {
+    result = moment.tz(timeStamp, "Asia/Ho_Chi_Minh").format(format); //"DD/MM/YYYY";"MMM DD, YYYY",
+  }
+  if (type === "time") {
+    result = moment.tz(timeStamp, "Asia/Ho_Chi_Minh").format(format); //"HH:mm:ss"
+  }
+  return result;
+}

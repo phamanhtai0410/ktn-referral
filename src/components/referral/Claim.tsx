@@ -48,7 +48,7 @@ const Claim = () => {
               Rank:
             </span>
             <span className="font-poppins font-bold text-xl text-[#FFA52C]">
-              {userRank?.rank || '-'}
+              {userRank?.rank && userRank?.rank > 0 ? userRank?.rank : '--'}
             </span>
           </div>
           <div className="flex flex-row items-center space-x-3">
@@ -76,6 +76,7 @@ const Claim = () => {
               { 'bg-[#FFA52C] text-white': walletAccount },
               { 'bg-[#4D4233] text-[#806B4F]': !walletAccount },
             )}
+            disabled={!walletAccount}
             onClick={() => {
               onClickClaim()
             }}

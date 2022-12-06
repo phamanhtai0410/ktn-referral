@@ -9,13 +9,19 @@ import Information from './Information'
 import ReferralForm from './ReferralForm'
 import ModalClaim from './ModalClaim'
 import Claim from './Claim'
+import AffiliateHistory from './AffiliateHistory'
+import { clearReferralCode } from '@/reducers/referral'
 
 const ReferralPage = () => {
   const dispatch = useAppDispatch()
   const walletAccount = useSelector(selectWalletAccount)
 
   useEffect(() => {
-    dispatch(fetchReferralCode({ address: walletAccount }))
+    if (walletAccount) {
+      dispatch(fetchReferralCode({ address: walletAccount }))
+    } else {
+      dispatch(clearReferralCode({}))
+    }
   }, [walletAccount])
 
   return (
@@ -25,6 +31,7 @@ const ReferralPage = () => {
           <ReferralForm />
           <Claim />
           <LeaderBoard event="top_referral" />
+          <AffiliateHistory />
           <Information />
         </div>
       </div>
