@@ -87,7 +87,7 @@ build:
   script:
   #  - cp $PROD_ENV .env
     - docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD"
-    - docker build -t $FULLREPO_ASIA_PROD . -f Dockerfile
+    - docker build -t $FULLREPO_ASIA_PROD . -f Dockerfile-prod
     - docker image push $FULLREPO_ASIA_PROD
 
   only:
